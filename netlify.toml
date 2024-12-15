@@ -1,5 +1,7 @@
-# netlify.toml
+
 [build]
-  functions = "src/functions"
-  publish = "public"
-  command = "npm run build"
+  publish = "public"  # O la carpeta donde se encuentra tu contenido estático
+  command = "npm run build"  # Ajusta según tu flujo de trabajo
+
+[dev]
+  functions = "src/functions"  # Ruta a tus funciones

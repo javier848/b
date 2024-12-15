@@ -1,7 +1,4 @@
+# netlify.toml
 [build]
-  functions = "netlify/functions"  # Esto indica que las funciones están en la carpeta netlify/functions
-  publish = "public"  # Carpeta donde se encuentra el contenido estático, si tienes archivos frontend
-
-[dev]
-  functions = "netlify/functions"
+  functions = "src/functions"
   publish = "public"

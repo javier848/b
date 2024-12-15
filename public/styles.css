@@ -1,53 +1,34 @@
+
+/* Configuración de fuentes */
 body {
     font-family: 'Poppins', sans-serif;
 }
 
+/* Hero Section */
 .hero {
-    background: url('barberia.jpg') no-repeat center center/cover;
-    color: white;
+    background-color: #f8f9fa;
+    padding: 50px 0;
     text-align: center;
-    padding: 150px 0;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 .hero h1 {
     font-size: 3rem;
-    font-weight: 600;
+    margin-bottom: 20px;
 }
 
 .hero p {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
 }
 
-.servicios .card {
-    transition: transform 0.3s, box-shadow 0.3s;
+/* Servicios */
+.card {
+    margin-bottom: 20px;
 }
 
-.servicios .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-#mapa {
-    height: 400px;
-    width: 100%;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-}
-
+/* Footer */
 footer {
-    background: #333;
-    color: white;
+    background-color: #f8f9fa;
+    padding: 20px 0;
     text-align: center;
-    padding: 15px 0;
-}
-
-.btn-primary {
-    background-color: #007BFF;
-    border-color: #0056b3;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #003f87;
 }

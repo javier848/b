@@ -1,27 +1,13 @@
-// src/functions/citas.js
+const faunadb = require('faunadb');
+const q = faunadb.query;
 
-const { v4: uuidv4 } = require('uuid');
-const fs = require('fs');
-const path = require('path');
-
-// Ruta para almacenar las citas
-const citasFilePath = path.resolve(__dirname, '../../citas.json');
+// Configura el cliente usando la clave desde las variables de entorno
+const client = new faunadb.Client({ secret: process.env.FAUNA_SECRET_KEY });
 
 exports.handler = async (event, context) => {
-    if (event.httpMethod === 'GET') {
-        // Leer todas las citas del archivo JSON
-        const citas = JSON.parse(fs.readFileSync(citasFilePath, 'utf8'));
-        return {
-            statusCode: 200,
-            body: JSON.stringify(citas),
-        };
-    }
-
     if (event.httpMethod === 'POST') {
-        // Parsear el cuerpo de la solicitud
         const { nombre, email, telefono, fecha, hora, servicio } = JSON.parse(event.body);
 
-        // Validar los campos requeridos
         if (!nombre || !email || !telefono || !fecha || !hora || !servicio) {
             return {
                 statusCode: 400,
@@ -29,28 +15,25 @@ exports.handler = async (event, context) => {
             };
         }
 
-        // Crear una nueva cita
-        const nuevaCita = {
-            id: uuidv4(),
-            nombre,
-            email,
-            telefono,
-            fecha,
-            hora,
-            servicio,
-        };
+        try {
+            // Crear un nuevo documento en la colección "citas"
+            const result = await client.query(
+                q.Create(q.Collection('citas'), {
+                    data: { nombre, email, telefono, fecha, hora, servicio },
+                })
+            );
 
-        // Leer las citas existentes y agregar la nueva cita
-        const citas = JSON.parse(fs.readFileSync(citasFilePath, 'utf8'));
-        citas.push(nuevaCita);
-
-        // Guardar las citas actualizadas en el archivo JSON
-        fs.writeFileSync(citasFilePath, JSON.stringify(citas, null, 2));
-
-        return {
-            statusCode: 201,
-            body: JSON.stringify({ mensaje: 'Cita agendada correctamente' }),
-        };
+            return {
+                statusCode: 201,
+                body: JSON.stringify({ mensaje: 'Cita agendada correctamente', cita: result }),
+            };
+        } catch (error) {
+            console.error('Error al guardar la cita:', error);
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ error: 'Error al agendar la cita' }),
+            };
+        }
     }
 
     return {

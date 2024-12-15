@@ -4,7 +4,7 @@
   "main": "scripts.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cp -r * public/"  
+    "build": "cp -r * public/"
   },
   "keywords": [],
   "author": "",
@@ -13,7 +13,6 @@
   "dependencies": {
     "express": "^4.21.2",
     "fs": "^0.0.1-security",
-    "netlify-lambda": "^2.0.16",
     "uuid": "^11.0.3"
   }
 }

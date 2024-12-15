@@ -2,3 +2,4 @@
 [build]
   functions = "src/functions"
   publish = "public"
+  command = "npm run build"
